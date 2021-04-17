@@ -22,11 +22,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource("classpath:lang/lang-${demo.lang}.properties")
 public class SwaggerConfig {
 	
-	@Value("${swagger.titulo}")
-	private String titulo;
+	@Value("${swagger.title}")
+	private String title;
 	
-	@Value("${swagger.descripcion}")
-	private String descripcion;
+	@Value("${swagger.description}")
+	private String description;
 	
 	@Bean
     public Docket api() { 
@@ -41,8 +41,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
     	Contact contacto = new Contact(SwaggerConstants.NAME_CONTACT, SwaggerConstants.CONTACT_URL, SwaggerConstants.CONTACT_EMAIL);
     	return new ApiInfoBuilder()
-        .title(titulo)
-        .description(descripcion)
+        .title(title)
+        .description(description)
         .termsOfServiceUrl(SwaggerConstants.TERMS_URL)
         .contact(contacto)
         .license(SwaggerConstants.LICENCE)

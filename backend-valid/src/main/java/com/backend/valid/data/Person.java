@@ -13,17 +13,14 @@ import javax.persistence.Table;
 @Table(name = "person")
 public class Person implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 712590993649804271L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
-	@Column(name = "lastName")
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
 	@Column(name = "processed", columnDefinition = "boolean default false")
 	private boolean processed;

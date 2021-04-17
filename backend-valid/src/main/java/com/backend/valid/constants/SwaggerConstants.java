@@ -7,7 +7,7 @@ public class SwaggerConstants {
 	public static final String LICENCE_URL = "";
 	public static final String LICENCE = "";
 	public static final String NAME_CONTACT = "Paola Andrea España Cabrera";
-	public static final String CONTACT_URL = "";
+	public static final String CONTACT_URL = "https://www.linkedin.com/in/paola-andrea-espa%C3%B1a-cabrera-639377171/";
 	public static final String CONTACT_EMAIL = "andrea9682@hotmail.com";
 	public static final String PACKAGE_CONTROLLER = "com.backend.valid.webcontroller";
 

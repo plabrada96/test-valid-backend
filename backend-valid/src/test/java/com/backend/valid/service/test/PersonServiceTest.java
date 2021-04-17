@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +26,23 @@ public class PersonServiceTest {
 		Person person = new Person();
 		person.setName("Paola");
 		person.setLastName("España");
-		person.setProcessed(false);
 		Person personDummy = service.save(person); 
 		assertEquals(person, personDummy);
 	}
 	
 	@Test
 	public void updateProcessedTest() {
-		Person person = new Person();
-		person.setName("Paola");
-		person.setLastName("España");
-		person.setProcessed(false);
-		service.save(person);
-		service.updateProcessed(Arrays.asList(person.getId())); 
-		assertTrue(person.getProcessed());
+		List<Person> personsList = service.listPersons(null, null).getContent();
+		service.updateProcessed(Arrays.asList(personsList.get(0).getId())); 
+		assertTrue(personsList.get(0).getProcessed());
+	}
+	
+	@Test
+	public void listPersonsTest() {
+		List<Person> personsListWithPagination = service.listPersons(null, null).getContent();
+		assertEquals(personsListWithPagination.size(), 1);
+		List<Person> personsListWithOutPagination = service.listPersons(0, 2).getContent();
+		assertEquals(personsListWithOutPagination.size(), 1);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.backend.valid.data.Person;
@@ -21,7 +22,11 @@ public class PersonService {
 	}
 
 	public Page<Person> listPersons(Integer page, Integer size) {
-		return personRepository.findAll(PageRequest.of(page, size));
+		if(page!=null && size!=null) {
+			return personRepository.findAll(PageRequest.of(page, size));
+		}else {
+			return personRepository.findAll(Pageable.unpaged());
+		}
 	}
 
 	private List<Person> listPersonsById(List<Long> personsIds) {
@@ -34,7 +39,9 @@ public class PersonService {
 	 */
 	public void updateProcessed(List<Long> personsIds) {
 		List<Person> personsToProcessed = listPersonsById(personsIds);
-		personsToProcessed.forEach((person) -> person.setProcessed(true));
-		personRepository.saveAll(personsToProcessed);
+		if (personsToProcessed != null) {
+			personsToProcessed.forEach((person) -> person.setProcessed(true));
+			personRepository.saveAll(personsToProcessed);
+		}
 	}
 }

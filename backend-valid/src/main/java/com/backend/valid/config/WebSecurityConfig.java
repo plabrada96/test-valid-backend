@@ -1,5 +1,6 @@
 package com.backend.valid.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,9 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private AppConfig appConfig;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -33,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    
 	    CorsConfiguration authConfig = new CorsConfiguration();
 	    authConfig.setAllowCredentials(true);
-	    authConfig.addAllowedOrigin("*");
+	    authConfig.addAllowedOrigin(appConfig.getFrontEndUrl());
 	    authConfig.addAllowedHeader("Authorization");
 	    authConfig.addAllowedHeader("Content-Type");
 	    authConfig.addAllowedHeader("Accept");

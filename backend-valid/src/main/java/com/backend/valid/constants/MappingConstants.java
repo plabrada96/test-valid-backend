@@ -11,9 +11,7 @@ public abstract class MappingConstants {
 	public static final String SIZE = "size";
 
 	public static final String SAVE_STANDARD = "";
-	public static final String UPDATE_STANDARD = "/{personsIds}";
-	public static final String CONSULT_STANDARD = "/{id}";
-	public static final String DELETE_STANDARD = "/{id}";
+	public static final String UPDATE_STANDARD = "";
 	public static final String LIST_STANDARD = "";
 
 }

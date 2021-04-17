@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,19 +34,22 @@ public class PersonController {
 
 	@PutMapping(MappingConstants.UPDATE_STANDARD)
 	@ApiOperation(value = "${swagger.UPDATE_PERSON_PROCESSED}")
-	public void updateProcessed(@RequestParam List<Long> personsIds) {
+	public ResponseEntity<Void> updateProcessed(@RequestBody(required = true) List<Long> personsIds) {
 		personService.updateProcessed(personsIds);
+		return ResponseEntity
+				.ok()
+				.build();
 	}
 
 	@PostMapping(MappingConstants.SAVE_STANDARD)
 	@ApiOperation(value = "${swagger.SAVE_PERSON}")
-	public Person save(@RequestBody(required = true) Person person) {
-		return personService.save(person);
+	public ResponseEntity<Person> save(@RequestBody(required = true) Person person) {
+		return new ResponseEntity<>(personService.save(person),HttpStatus.CREATED);
 	}
 
-	@GetMapping("")
+	@GetMapping(MappingConstants.SAVE_STANDARD)
 	@ApiOperation(value = "${swagger.LIST_PERSONS}")
-	public Page<Person> list(@RequestParam("page") Integer page, @RequestParam("size") Integer size) {
-		return personService.listPersons(page, size);
+	public ResponseEntity<Page<Person>> list(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer size) {
+		return new ResponseEntity<>(personService.listPersons(page, size),HttpStatus.OK);
 	}
 }
